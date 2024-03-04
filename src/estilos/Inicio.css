@@ -1,0 +1,43 @@
+/* Estilos para el componente Inicio */
+
+
+.container {
+    background-color: #efa8a8; /* Color de fondo */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    max-width: 80%; /* Ancho máximo */
+    margin: 0 auto; /* Centrar en la página */
+    margin-bottom: 10%;
+}
+/* Estilos para el título principal */
+h1 {
+    font-family:monospace;
+    font-size: 32px;
+    color: #471d48;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* Estilos para el párrafo */
+p {
+    font-family: 'Pokemon Solid', sans-serif;
+    font-size: 16px;
+    color: #434343;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+/* Estilos para el componente Carrusel */
+
+.carousel {
+    max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto; /* Centrar el carrusel horizontalmente */
+}
+
+.carousel-item img {
+    max-height: 600px; /* Ajusta la altura máxima de las imágenes del carrusel */
+    object-fit: cover; /* Ajusta la forma en que las imágenes se ajustan al contenedor */
+}

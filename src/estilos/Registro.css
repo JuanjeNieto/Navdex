@@ -1,0 +1,89 @@
+.form-container {
+    width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #81e293;
+    border-radius: 10px;
+}
+
+.form-title{
+    text-align: center;
+    font-family:fantasy;
+    letter-spacing: 0.31rem;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-password {
+    position: relative;
+}
+
+.input-password input[type="checkbox"] {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.btn-submit {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.btn-submit:hover {
+    transition: 0.5s;
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+}
+
+.success-message {
+    color: green;
+}
+
+/* En tu archivo Registro.css */
+
+/* Estilos para el botón de mostrar contraseña */
+.toggle-password {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  /* Estilo del icono del ojo */
+  .eye-icon {
+    font-size: 1.5rem;
+    color: #666; /* Color del icono por defecto */
+  }
+  
+  /* Estilo del icono del ojo cuando se pasa el ratón sobre él */
+  .toggle-password:hover .eye-icon {
+    transition: 0.4s;
+    color: #151313; /* Cambia el color del icono al pasar el ratón sobre él */
+  }
+  
+
+/* En tu archivo Registro.css */
+
+/* Estilos para la imagen del profesor */
+.prof-image {
+    width: 300px; /* Ajusta el ancho según sea necesario */
+    display: block;
+    margin: 20px auto; /* Centra la imagen horizontalmente */
+  }
+  
+  

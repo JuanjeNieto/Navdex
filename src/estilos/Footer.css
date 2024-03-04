@@ -1,0 +1,13 @@
+/* Estilos para el footer */
+footer {
+    background-color: #54bb37; /* Color de fondo */
+    margin-top: 2rem;
+    color: #fff; /* Color del texto */
+    padding: 1px 0; /* Espaciado interno */
+    text-align: center; /* Alineación del texto al centro */
+    position: fixed; /* Posición fija */
+    left: 0; /* Pegado a la izquierda */
+    bottom: 0; /* Pegado al fondo */
+    width: 100%; /* Ancho completo */
+    max-height: 30px;
+}

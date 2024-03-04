@@ -1,0 +1,118 @@
+.pokedex-container {
+    width: 95%;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #d5e9bd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3%;
+}
+
+
+.pokemon-options,
+.pokemon-team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.pokemon-card {
+    background-color: #f0f0f0;
+    border-radius: 30px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-5px);
+}
+
+.pokemon-card img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.pokemon-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.pokemon-card button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.pokemon-card button:hover {
+    background-color: #45a049;
+}
+
+.loading-message {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.refresh-button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.refresh-button:hover {
+    background-color: #006080;
+}
+
+.team-header {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.type-pokemon {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: white;
+}
+
+.grass { background-color: #2eab0f; }
+.fire { background-color: #f06630; }
+.water { background-color: #2d63e0; }
+.bug { background-color: #A8B820; }
+.normal { background-color: #babaaa;}
+.poison { background-color: #A040A0; }
+.electric { background-color: #F8D030; }
+.ground { background-color: #E0C068; }
+.fairy { background-color: #EE99AC; }
+.fighting { background-color: #C03028; }
+.psychic { background-color: #F85888; }
+.rock { background-color: #B8A038; }
+.ghost { background-color: #705898; }
+.ice { background-color: #98D8D8; }
+.dragon { background-color: #7038F8; }
+.dark { background-color: #705848; }
+.steel { background-color: #B8B8D0; }
+.flying { background-color: #A890F0; }
+
+
