@@ -1,15 +1,17 @@
-/* Estilos para el componente Inicio */
-
+body {
+    background-color: #471d48;
+}
 
 .container {
-    background-color: #efa8a8; /* Color de fondo */
-    padding: 20px; /* Espaciado interno */
+    background-image: linear-gradient(to bottom, #a5c5cf, black);
+
+    padding: 25px; /* Espaciado interno */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    max-width: 80%; /* Ancho máximo */
-    margin: 0 auto; /* Centrar en la página */
-    margin-bottom: 10%;
+    width: 100vw; /* Ocupar todo el ancho de la ventana */
+    margin-bottom: 6px; /* Espacio en la parte inferior */
 }
+
 /* Estilos para el título principal */
 h1 {
     font-family:monospace;

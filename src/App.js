@@ -8,6 +8,8 @@ import About from './secciones/AboutPokemon';
 import Registro from './secciones/Registro';
 import Login from './secciones/Login';
 import Pokedex from './secciones/Pokedex';
+import Logout from './secciones/Logout';
+import Error404 from './secciones/Error404';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,15 +17,16 @@ function App() {
     
     return (
         <Router>
-            <div>
-                <Navbar />
+            <div className='app-container'>
+                <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                 <Routes>
                     <Route path="/" element={<Inicio />} />
                     <Route path="/about" element={<About />} />
                     <Route path='/registrar' element={<Registro />} />
                     <Route path="/login" element={<Login setUserId={setUserId} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/pokedex" element={<Pokedex isLoggedIn={isLoggedIn} userId={userId} setIsLoggedIn={setIsLoggedIn} />} />
-                    
+                    <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
+                    <Route path="*" element={<Error404 />} />
                 </Routes>
                 <Footer />
             </div>

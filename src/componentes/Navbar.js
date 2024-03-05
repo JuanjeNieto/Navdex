@@ -8,7 +8,7 @@ import { MdLogin, MdLogout } from "react-icons/md";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
-    const handleLogout = () => {
+    const manejoLogout = () => {
         setIsLoggedIn(false);
     };
 
@@ -36,7 +36,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                         {isLoggedIn ? (
                             <li className="navbar-item">
                                 <MdLogout  className='icon'/>
-                                <button onClick={handleLogout}>Cerrar Sesión</button>
+                                <Link to="/logout" className="nav-link" onClick={manejoLogout}>Cerrar Sesión</Link>
                             </li>
                         ) : (
                             <li className="navbar-item">

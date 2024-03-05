@@ -8,7 +8,7 @@ import imagen3 from '../images/leyendas-pokemon-za.jpg.webp';
 import imagen4 from '../images/quasar-leyendas-pokemon-za.jpg.webp';
 const Carrusel = () => {
     return (
-        <div id="demo" className="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="2000">
+        <div id="demo" className="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="50">
 
             <div className="carousel-indicators">
                 <button type="button" data-bs-target="#demo" data-bs-slide-to="0" className="active"></button>
