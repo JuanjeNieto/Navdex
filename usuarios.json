@@ -1,99 +1,14 @@
 {
   "usuarios": [
     {
-      "id": "783092",
-      "username": "juanjeadmin",
-      "password": "23"
-    },
-    {
-      "id": "665356",
-      "username": "werwerwer",
-      "password": "werwerwer"
-    },
-    {
-      "id": "6221",
+      "id": 272891,
       "username": "juanjeadmin",
       "password": "juanje"
     },
     {
-      "id": "e708",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "edac",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "101981",
-      "username": "user02",
-      "password": "user02"
-    },
-    {
-      "id": "2856",
-      "username": "user02",
-      "password": "user02"
-    },
-    {
-      "id": "c36f",
-      "username": "user02",
-      "password": "user02"
-    },
-    {
-      "id": "e094",
-      "username": "user02",
-      "password": "user02"
-    },
-    {
-      "id": "862278",
-      "username": "alcachofas",
-      "password": "chofas"
-    },
-    {
-      "id": "85c7",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "2c49",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "2c23",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "86b3",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "1286",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "6273",
-      "username": "user02",
-      "password": "user02"
-    },
-    {
-      "id": "3400",
-      "username": "juanjeadmin",
-      "password": "juanje"
-    },
-    {
-      "id": "b1d0",
-      "username": "user02",
-      "password": "user02"
-    },
-    {
-      "id": "0130",
-      "username": "juanjeadmin",
-      "password": "juanje"
+      "id": 602544,
+      "username": "vegapunk",
+      "password": "punk"
     }
   ]
 }

@@ -20,32 +20,28 @@ const Login = ({ setIsLoggedIn }) => {
 
     const manejoEnvio = async (e) => {
         e.preventDefault();
-
+    
         if (!credentials.username || !credentials.password) {
             setError('Por favor, complete todos los campos.');
             return;
         }
-
+    
         try {
-            const response = await fetch('http://localhost:3001/usuarios/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(credentials)
-            });
-
-            if (response.ok) {
+            const response = await fetch(`http://localhost:3001/usuarios/?username=${credentials.username}&password=${credentials.password}`);
+            const data = await response.json();
+    
+            if (response.ok && data.length > 0) {
                 setIsLoggedIn(true);
                 navigate('/pokedex', { state: { usuario: credentials.username } });
             } else {
-                throw new Error('Error al iniciar sesión');
+                throw new Error('Usuario no encontrado en la base de datos.');
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             setError('Credenciales inválidas. Inténtalo de nuevo.');
         }
     };
+    
 
     const toggleMostrarPassword = () => {
         setMostrarPassword(!mostrarPassword);
