@@ -10,25 +10,22 @@ import Login from './secciones/Login';
 import Pokedex from './secciones/Pokedex';
 
 function App() {
-
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userId, setUserId] = useState(null);
+    
     return (
-      
         <Router>
             <div>
-                <Navbar/>
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<Inicio />} />
                     <Route path="/about" element={<About />} />
-                    <Route path='/registrar' element={<Registro/>}/>
-                    <Route path="/login" element={<Login setUserId={setUserId} setIsLoggedIn={setIsLoggedIn}/>} />
-                    <Route path="/pokedex" element={<Pokedex isLoggedIn={isLoggedIn} userId={userId} setIsLoggedIn={setIsLoggedIn}/>} />
-                
+                    <Route path='/registrar' element={<Registro />} />
+                    <Route path="/login" element={<Login setUserId={setUserId} setIsLoggedIn={setIsLoggedIn} />} />
+                    <Route path="/pokedex" element={<Pokedex isLoggedIn={isLoggedIn} userId={userId} setIsLoggedIn={setIsLoggedIn} />} />
                     
                 </Routes>
-                <Footer/>
+                <Footer />
             </div>
         </Router>
     );
