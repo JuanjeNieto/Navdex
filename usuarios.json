@@ -1,14 +1,19 @@
 {
   "usuarios": [
     {
-      "id": 272891,
+      "id": "272891",
       "username": "juanjeadmin",
       "password": "juanje"
     },
     {
-      "id": 602544,
+      "id": "602544",
       "username": "vegapunk",
       "password": "punk"
+    },
+    {
+      "id": 287736,
+      "username": "Blasco",
+      "password": "ralts"
     }
   ]
 }

@@ -29,10 +29,12 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                             <MdCatchingPokemon className='icon' />
                             <Link className="nav-link" to="/about">Acerca de</Link>
                         </li>
-                        <li className="navbar-item">
-                            <FaUserPlus className='icon'/>
-                            <Link className="nav-link" to="/registrar">Registrarse</Link>
-                        </li>
+                        {!isLoggedIn && (
+                            <li className="navbar-item">
+                                <FaUserPlus className='icon'/>
+                                <Link className="nav-link" to="/registrar">Registrarse</Link>
+                            </li>
+                        )}
                         {isLoggedIn ? (
                             <li className="navbar-item">
                                 <MdLogout  className='icon'/>
