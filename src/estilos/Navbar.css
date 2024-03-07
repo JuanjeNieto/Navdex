@@ -41,6 +41,8 @@
 
 .navbar-item:hover .icon {
     transform: translateY(-20px);
+    font-size: 0.8em;
+    opacity: 0.5;
 }
 
 .navbar-item .nav-link {

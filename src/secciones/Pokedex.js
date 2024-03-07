@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import Pokemon from '../componentes/Pokemon'; 
 import '../estilos/pokedex.css';
 

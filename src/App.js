@@ -22,14 +22,17 @@ function App() {
             <div className='app-container'>
                 <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                 <Routes>
+
                     <Route path="/" element={<Inicio />} />
                     <Route path="/about" element={<About />} />
                     <Route path='/registrar' element={<Registro />} />
                     <Route path="/login" element={<Login setUserId={setUserId} setIsLoggedIn={setIsLoggedIn} />} />
+
                     {/* Protege la ruta /pokedex dentro de la definición del Route */}
                     <Route path="/pokedex" element={isLoggedIn ? <Pokedex isLoggedIn={isLoggedIn} userId={userId} setIsLoggedIn={setIsLoggedIn} /> : <Navigate to={LOGIN_URL} />} />
                     <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="*" element={<Error404 />} />
+                    
                 </Routes>
                 <Footer />
             </div>

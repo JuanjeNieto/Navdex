@@ -21,10 +21,12 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 <div className="collapse navbar-collapse justify-content-right" id="navbar-toggler">
                     <p className='title'>PC de Juanje</p>
                     <ul className="navbar-nav d-flex justify-content-center align-items-center">
-                        <li className="navbar-item">
+                        {!isLoggedIn &&(
+                            <li className="navbar-item">
                             <IoHome className='icon' />
                             <Link className="nav-link" to="/">Inicio</Link>
                         </li>
+                        )}
                         <li className="navbar-item">
                             <MdCatchingPokemon className='icon' />
                             <Link className="nav-link" to="/about">Acerca de</Link>
