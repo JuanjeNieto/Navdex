@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../estilos/Registro.css'; // Archivo CSS para estilos
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import profImage from '../images/prof.jpg'; // Importa la imagen
+import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
     const [datos, setDatos] = useState({
@@ -12,6 +13,9 @@ const Registro = () => {
     const [mensajeOk, setMensajeOk] = useState('');
     const [error, setError] = useState('');
     const [mostrarPassword, setMostrarPassword] = useState(false);
+
+    // Hook de navegación para redirigir después del inicio de sesión
+    const navigate = useNavigate();
 
     const manejoCambio = (e) => {
         setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -63,6 +67,7 @@ const Registro = () => {
                     username: '',
                     password: ''
                 });
+                navigate('/login');
                 setError('');
             } else {
                 throw new Error('Error al registrar usuario');

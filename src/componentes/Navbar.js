@@ -32,18 +32,18 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                         {!isLoggedIn && (
                             <li className="navbar-item">
                                 <FaUserPlus className='icon'/>
-                                <Link className="nav-link" to="/registrar">Registrarse</Link>
+                                <Link className="nav-link" to="/registrar">Registrar</Link>
                             </li>
                         )}
                         {isLoggedIn ? (
                             <li className="navbar-item">
                                 <MdLogout  className='icon'/>
-                                <Link to="/logout" className="nav-link" onClick={manejoLogout}>Cerrar Sesión</Link>
+                                <Link to="/logout" className="nav-link" onClick={manejoLogout}>Cerrar</Link>
                             </li>
                         ) : (
                             <li className="navbar-item">
                                 <MdLogin  className='icon'/>
-                                <Link to="/login" className="nav-link">Iniciar Sesión</Link>
+                                <Link to="/login" className="nav-link">Acceder</Link>
                             </li>
                         )}
                     </ul>
