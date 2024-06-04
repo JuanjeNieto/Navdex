@@ -1,0 +1,85 @@
+.App {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+  }
+  
+  .tabs button {
+    background-color: #ffe1bc;
+    border: 1px solid #6b1515;
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tabs button.active {
+    background-color: #ef5f5f;
+  }
+  
+  .tabs button:hover {
+    background-color: #ee8989;
+  }
+  
+  .table-container {
+    margin: 20px;
+    padding: 20px;
+    border: double 2px black;
+    border-radius: 30px;
+    background: linear-gradient(rgb(147, 157, 234), rgb(214, 108, 108));
+  }
+  
+  table {
+    margin: 28px;
+    border-collapse: collapse;
+    width: 90%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center !important;
+  }
+  
+  td {
+    text-align: center;
+  }
+  
+  img {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+  }
+  
+  .spinner {
+    border: 10px solid #df4343; 
+    border-top: 10px solid #ffffff; 
+    
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

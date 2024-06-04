@@ -14,12 +14,20 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
     return (
         <nav className="navbar navbar-expand-md navbar-light">
-            <div className="container-fluid">
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+            <button 
+                className="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbar-toggler" 
+                aria-controls="navbar-toggler" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation"
+            >
+                <span className="navbar-toggler-icon"></span>
+            </button>
+
                 <div className="collapse navbar-collapse justify-content-right" id="navbar-toggler">
-                    <p className='title'>PC de Juanje</p>
+                    <p className='title'>Navdex App</p>
                     <ul className="navbar-nav d-flex justify-content-center align-items-center">
                         {!isLoggedIn &&(
                             <li className="navbar-item">
@@ -50,7 +58,6 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                         )}
                     </ul>
                 </div>
-            </div>
         </nav>
     );
 };

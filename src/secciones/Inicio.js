@@ -1,14 +1,24 @@
 import React from 'react';
-import Carrusel from '../componentes/Carrusel';
-import '../estilos/Inicio.css'; 
+import { Link } from 'react-router-dom';
+import '../estilos/Inicio.css';
+
 
 const Inicio = () => {
     return (
-        <div className='container'>
-            <h1>Has abierto el PC de Juanje.</h1>
+        <div className='inicio-container'>
+            <div className='background-overlay'>
+                <h1>Bienvenido a Navdex</h1>
+                <p>Descubre +30 juegos y +1000 especies</p>
+                <div className="buttons">
+                    <Link to="/login" className="btn-primary">
+                        Iniciar Sesión
+                    </Link>
+                    <Link to="/registrar" className="btn-secondary">
+                        Registrarse
+                    </Link>
+                </div>
+            </div>
             
-            <p>Leyendas: Pokémon Z-A, la última novedad</p>
-            <Carrusel/>
         </div>
     );
 }

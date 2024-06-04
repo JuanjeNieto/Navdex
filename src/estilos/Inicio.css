@@ -1,45 +1,77 @@
-body {
-    background-color: #471d48;
-}
+/* Estilos para el componente Inicio */
 
-.container {
-    background-image: linear-gradient(to bottom, #a5c5cf, black);
-
-    padding: 25px; /* Espaciado interno */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    width: 100vw; /* Ocupar todo el ancho de la ventana */
-    margin-bottom: 6px; /* Espacio en la parte inferior */
-}
-
-/* Estilos para el título principal */
-h1 {
-    font-family:monospace;
-    font-size: 32px;
-    color: #471d48;
+.inicio-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
     text-align: center;
-    margin-bottom: 20px;
+    color: white;
 }
 
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)), url('../images/6239361.png') no-repeat center center/cover;
+    z-index: 1;
+}
+.background-overlay h1{
+    font-size: 60px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.background-overlay p{
+    font-size: larger;
+    color: azure;
+}
 
-/* Estilos para el párrafo */
-p {
-    font-family: 'Pokemon Solid', sans-serif;
-    font-size: 16px;
-    color: #434343;
+.inicio-container h1, .inicio-container p {
+    margin: 10px 20px;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 2;
+    text-decoration: none;
+    display: inline-block;
     text-align: center;
-    margin-bottom: 30px;
 }
 
-
-/* Estilos para el componente Carrusel */
-
-.carousel {
-    max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
-    margin: 0 auto; /* Centrar el carrusel horizontalmente */
+.btn-primary {
+    background-color: #cd5f5f;
+    color: white;
+    transition: 0.3s;
 }
 
-.carousel-item img {
-    max-height: 600px; /* Ajusta la altura máxima de las imágenes del carrusel */
-    object-fit: cover; /* Ajusta la forma en que las imágenes se ajustan al contenedor */
+.btn-primary:hover {
+    transition: 0.3s;
+    background-color: #620404;
+}
+
+.btn-secondary {
+    transition: 0.3s;
+    background-color: #8e7771;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transition: 0.3s;
 }

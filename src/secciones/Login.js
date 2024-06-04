@@ -3,57 +3,53 @@ import '../estilos/Registro.css'; // Archivo CSS para estilos
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-// Componente funcional de Login que recibe setIsLoggedIn como prop
 const Login = ({ setIsLoggedIn }) => {
-    // Estado para almacenar las credenciales del usuario
     const [credentials, setCredentials] = useState({
-        username: '',
+        name: '',
         password: ''
     });
 
-    // Hook de navegación para redirigir después del inicio de sesión
     const navigate = useNavigate();
-
-    // Estado para gestionar mensajes de error
     const [error, setError] = useState('');
-
-    // Estado para controlar la visibilidad de la contraseña
     const [mostrarPassword, setMostrarPassword] = useState(false);
 
-    // Función para manejar cambios en los campos de entrada
     const manejoCambio = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
 
-    // Función para manejar el envío del formulario
     const manejoEnvio = async (e) => {
         e.preventDefault();
-    
-        if (!credentials.username || !credentials.password) {
+
+        if (!credentials.name || !credentials.password) {
             setError('Por favor, complete todos los campos.');
             return;
         }
-    
+
         try {
-            // Petición para verificar las credenciales del usuario
-            const response = await fetch(`http://localhost:3001/usuarios/?username=${credentials.username}&password=${credentials.password}`);
-            const data = await response.json();
-    
-            if (response.ok && data.length > 0) {
-                // Si las credenciales son correctas, establecer el estado de inicio de sesión y redirigir
+            const response = await fetch('http://localhost:3000/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Inicio de sesión exitoso:', responseData);
                 setIsLoggedIn(true);
-                navigate('/pokedex', { state: { usuario: credentials.username } });
+                navigate('/pokedex', { state: { usuario: credentials.name } });
             } else {
-                // Si las credenciales son incorrectas, mostrar un mensaje de error
-                throw new Error('Usuario no encontrado en la base de datos.');
+                const errorData = await response.json();
+                console.log('Error en la respuesta del servidor:', errorData);
+                setError(errorData.message || 'Credenciales inválidas. Inténtalo de nuevo.');
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
-            setError('Credenciales inválidas. Inténtalo de nuevo.');
+            setError('Error en la conexión. Inténtalo de nuevo.');
         }
     };
-    
-    // Función para alternar la visibilidad de la contraseña
+
     const toggleMostrarPassword = () => {
         setMostrarPassword(!mostrarPassword);
     };
@@ -64,13 +60,12 @@ const Login = ({ setIsLoggedIn }) => {
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={manejoEnvio}>
                 <div className="form-group">
-                    <label htmlFor="username">Usuario:</label>
-                    <input type="text" id="username" name="username" value={credentials.username} onChange={manejoCambio} className="form-control" />
+                    <label htmlFor="name">Usuario:</label>
+                    <input type="text" id="name" name="name" value={credentials.name} onChange={manejoCambio} className="form-control" />
                 </div>
                 <div className="form-group password-input">
                     <label htmlFor="password">Contraseña:</label>
                     <input type={mostrarPassword ? "text" : "password"} id="password" name="password" value={credentials.password} onChange={manejoCambio} className="form-control" />
-                    {/* Botón para alternar la visibilidad de la contraseña */}
                     <button type="button" onClick={toggleMostrarPassword} className="toggle-password">
                         {mostrarPassword ? <FaRegEyeSlash className="eye-icon" /> : <FaRegEye className="eye-icon" />}
                     </button>
