@@ -1,0 +1,54 @@
+.user-profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(rgb(217, 91, 91), rgb(214, 214, 247)); /* Color de fondo */
+}
+
+.user-profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem; /* Añadir espacio interno */
+    background-color: #ffffff; /* Color de fondo del contenedor */
+    border-radius: 20px; /* Borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #402727;
+    border-radius: 20px;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #272a2e;
+    color: #fff;
+    border: none;
+    border-radius: 20px !important;
+    cursor: pointer;
+}
+
+.profile-picture-container {
+    margin: 1rem;
+    margin-left: 0%;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.saved-message{
+    color: rgb(70, 156, 72);
+}

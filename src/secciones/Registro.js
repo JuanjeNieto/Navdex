@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../estilos/Registro.css';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
+import profImage from '../images/prof.jpg';
 
 const Registro = () => {
     const [datos, setDatos] = useState({
@@ -30,7 +32,7 @@ const Registro = () => {
 
         // Registrar el usuario
         try {
-            const response = await fetch('http://localhost:3000/api/users/register', {
+            const response = await fetch(`${API_BASE_URL}/api/users/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -72,8 +74,10 @@ const Registro = () => {
             <h2 className='form-title'>Regístrate!</h2>
             {mensajeOk && <p className="success-message">{mensajeOk}</p>}
             {error && <p className="error-message">{error}</p>}
+            
             <form onSubmit={manejoEnvio}>
                 <div className="form-group">
+                    <img src={profImage} alt="professor" className="prof-image" />
                     <label htmlFor="name">Nombre:</label>
                     <input type="text" id="name" name="name" value={datos.name} onChange={manejoCambio} className="form-control" />
                 </div>

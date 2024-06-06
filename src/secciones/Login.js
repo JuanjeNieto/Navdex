@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import '../estilos/Registro.css'; // Archivo CSS para estilos
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config'; 
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn, setUserId }) => {
     const [credentials, setCredentials] = useState({
         name: '',
         password: ''
@@ -26,7 +27,7 @@ const Login = ({ setIsLoggedIn }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/users/login', {
+            const response = await fetch(`${API_BASE_URL}/api/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,12 +37,13 @@ const Login = ({ setIsLoggedIn }) => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log('Inicio de sesión exitoso:', responseData);
+                // Guardar el token en el almacenamiento local del navegador
+                localStorage.setItem('token', responseData.token);
                 setIsLoggedIn(true);
-                navigate('/pokedex', { state: { usuario: credentials.name } });
+                setUserId(responseData.userId);
+                navigate('/completed-login-menu', { state: { usuario: credentials.name } });
             } else {
                 const errorData = await response.json();
-                console.log('Error en la respuesta del servidor:', errorData);
                 setError(errorData.message || 'Credenciales inválidas. Inténtalo de nuevo.');
             }
         } catch (error) {

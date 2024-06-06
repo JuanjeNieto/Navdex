@@ -5,11 +5,12 @@
   }
   
   .search-container input {
+    width: 400px !important;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #450202;
-    border-radius: 20px;
-    margin-right: 10px;
+    border: 2px solid #450202 !important;
+    border-radius: 20px !important;
+    margin-right: 10px !important;
   }
   
   .search-container button {
@@ -17,13 +18,13 @@
     font-size: 16px;
     border: none;
     border-radius: 50%;
-    background-color: #3b9aee;
+    background-color: #111920;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .search-container button:hover {
-    background-color: #1367b1;
+    background-color: #666666;
   }
   

@@ -1,8 +1,9 @@
 .form-container {
+    margin-top: 50px !important;
     width: 500px;
     margin: auto;
     padding: 20px;
-    border: 2px solid #81e293;
+    border: 2px solid #8191e2;
     border-radius: 10px;
 }
 
@@ -21,6 +22,10 @@ label {
     margin-bottom: 5px;
 }
 
+input{
+    border-radius: 5px !important;
+    border-color: #151313 !important;
+}
 .input-password {
     position: relative;
 }
@@ -33,17 +38,17 @@ label {
 
 .btn-submit {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #044891;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     align-items: center;
 }
 
 .btn-submit:hover {
     transition: 0.5s;
-    background-color: #0056b3;
+    background-color: #0d2c4e;
 }
 
 .error-message {
@@ -54,9 +59,7 @@ label {
     color: green;
 }
 
-/* En tu archivo Registro.css */
 
-/* Estilos para el botón de mostrar contraseña */
 .toggle-password {
     background-color: transparent;
     border: none;
@@ -75,15 +78,13 @@ label {
     transition: 0.4s;
     color: #151313; /* Cambia el color del icono al pasar el ratón sobre él */
   }
-  
-
-/* En tu archivo Registro.css */
 
 /* Estilos para la imagen del profesor */
 .prof-image {
-    width: 300px; /* Ajusta el ancho según sea necesario */
+    width: 260px; 
+    height: auto;
     display: block;
-    margin: 20px auto; /* Centra la imagen horizontalmente */
+    margin: 20px auto; 
   }
   
   

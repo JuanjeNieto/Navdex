@@ -1,0 +1,70 @@
+.menu-container {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: radial-gradient( yellow, rgb(225, 149, 118));
+    text-align: center;
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.menu-option {
+    
+    border: 1px solid #007BFF;
+    background-color: rgba(0, 0, 0, 0.326);
+    border-radius: 5px;
+    height: 150px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+.texto-link {
+    background-color: #ffffffaf;
+    border-radius: 20px;
+    width: 400px;
+    height: 40px;
+   
+    color: black;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.lista-juegos{
+    background: url('../images/juegos.png') ;
+    background-size: contain;
+    
+}
+
+.tabla-pokemon{
+    background: url('../images/especies-pokemon.png') ;
+    background-size: contain;
+    
+}
+
+.perfil-usuario{
+    background: linear-gradient(rgb(85, 179, 200), rgb(208, 145, 145)) ;
+    background-size: contain;
+    border: none;
+    transform: scale(0.7);
+    font-size: 1.5em;
+    margin-top: 60px;
+    
+}
+
+.menu-option:hover {
+    background-color: #0056b3;
+}

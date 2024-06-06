@@ -8,11 +8,13 @@
     justify-content: center;
     flex-wrap: wrap;
     
+    
   }
   
   .tabs button {
     background-color: #ffe1bc;
     border: 1px solid #6b1515;
+    color: black;
     border-radius: 15px;
     padding: 10px 20px;
     margin: 5px;

@@ -5,6 +5,7 @@ import gameImageUrls from '../componentes/GameImages';
 import gameIds from '../componentes/gameIds';
 import { translateGameName } from '../componentes/GameTranslations'; // Importa la función de traducción
 import '../estilos/gameDetails.css';
+import { translateMoveMethod } from '../componentes/MoveMethodTranslations';
 
 const capitalizeWords = (str) => {
     return str.replace(/\b\w/g, (char, index) => {
@@ -53,11 +54,15 @@ const GameDetails = () => {
                 }
 
                 let generationName = 'Desconocida';
+                let region = 'Desconocida';
                 if (versionData.version_group && versionData.version_group.url) {
                     const versionGroupResponse = await axios.get(versionData.version_group.url);
                     const versionGroupData = versionGroupResponse.data;
                     if (versionGroupData.generation) {
                         generationName = versionGroupData.generation.name;
+                    }
+                    if (versionGroupData.regions && versionGroupData.regions.length > 0) {
+                        region = versionGroupData.regions.map(region => region.name).join(', ');
                     }
                 }
                 
@@ -69,16 +74,14 @@ const GameDetails = () => {
 
                 const translatedName = translateGameName(versionData.name.toLowerCase()); // Traduce el nombre del juego
 
-                let region = 'Desconocida';
                 let moveLearnMethods = [];
-                if (versionData.version_group && versionData.version_group.url) {
-                    const versionGroupResponse = await axios.get(versionData.version_group.url);
-                    const versionGroupData = versionGroupResponse.data;
-                    region = versionGroupData.regions[0]?.name || 'Desconocida';
-                    moveLearnMethods = versionGroupData.move_learn_methods.length > 0 ? 
-                    versionGroupData.move_learn_methods.map(method => method.name) : 
-                    ['No se encontraron métodos en este juego'];
-                }
+            if (versionData.version_group && versionData.version_group.url) {
+                const versionGroupResponse = await axios.get(versionData.version_group.url);
+                const versionGroupData = versionGroupResponse.data;
+                moveLearnMethods = versionGroupData.move_learn_methods.length > 0 ? 
+                versionGroupData.move_learn_methods.map(method => translateMoveMethod(method.name) || method.name) : 
+                ['No se encontraron métodos en este juego'];
+            }
 
                 setGameDetails({
                     name: translatedName,

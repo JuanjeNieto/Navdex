@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../estilos/PokemonDetail.css';
+import { translateMoveMethod } from '../componentes/MoveMethodTranslations';
 
 const typeColors = {
   normal: '#A8A878',
@@ -47,25 +48,35 @@ const typeTranslations = {
 
 const PokemonDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [pokemon, setPokemon] = useState(null);
   const [species, setSpecies] = useState(null);
   const [evolutions, setEvolutions] = useState([]);
+  const [moves, setMoves] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPokemon = async () => {
+    const fetchPokemonData = async () => {
       try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        setPokemon(response.data);
+        setLoading(true);
+        const [pokemonResponse, locationResponse] = await Promise.all([
+          axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`),
+          axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/encounters`),
+        ]);
 
-        const speciesResponse = await axios.get(response.data.species.url);
-        setSpecies(speciesResponse.data);
+        const pokemonData = pokemonResponse.data;
+        setPokemon(pokemonData);
 
-        const evolutionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
+        const speciesResponse = await axios.get(pokemonData.species.url);
+        const speciesData = speciesResponse.data;
+        setSpecies(speciesData);
+
+        const evolutionResponse = await axios.get(speciesData.evolution_chain.url);
         const evolutionData = evolutionResponse.data;
-        let evolutionChain = [];
-        let current = evolutionData.chain;
 
+        const evolutionChain = [];
+        let current = evolutionData.chain;
         do {
           const evolvesTo = current.evolves_to.map(e => e.species.name);
           evolutionChain.push({ name: current.species.name, evolvesTo });
@@ -73,6 +84,31 @@ const PokemonDetail = () => {
         } while (current && current.evolves_to);
 
         setEvolutions(evolutionChain);
+
+        const locationData = await Promise.all(locationResponse.data.map(async (location) => {
+          const locationAreaResponse = await axios.get(location.location_area.url);
+          const locationName = locationAreaResponse.data.names.find(name => name.language.name === 'es');
+          return locationName ? locationName.name : location.location_area.name;
+        }));
+        setLocations(locationData);
+
+        const movesData = await Promise.all(pokemonData.moves.map(async (move) => {
+          const moveResponse = await axios.get(move.move.url);
+          const moveName = moveResponse.data.names.find(name => name.language.name === 'es');
+          const moveType = moveResponse.data.type.name;
+          return {
+            name: moveName ? moveName.name : move.move.name,
+            level: move.version_group_details[0].level_learned_at,
+            method: move.version_group_details[0].move_learn_method.name,
+            type: moveType,
+          };
+        }));
+
+        setMoves(await Promise.all(movesData.map(async (move) => ({
+          ...move,
+          method: await translateMoveMethod(move.method) || move.method,
+        }))));
+
       } catch (error) {
         console.error('Error fetching Pokemon details:', error);
       } finally {
@@ -80,7 +116,7 @@ const PokemonDetail = () => {
       }
     };
 
-    fetchPokemon();
+    fetchPokemonData();
   }, [id]);
 
   if (loading) {
@@ -95,14 +131,63 @@ const PokemonDetail = () => {
     return <div>No se encontró el Pokémon.</div>;
   }
 
+  const renderMoves = () => {
+    const groupedMoves = moves.reduce((acc, move) => {
+      const method = move.method;
+      if (!acc[method]) {
+        acc[method] = [];
+      }
+      acc[method].push(move);
+      return acc;
+    }, {});
+
+    return Object.keys(groupedMoves).map((method, index) => (
+      <div key={index} className="moves-section">
+        <h2>{translateMoveMethod(method)}</h2>
+        <ul className="moves-list">
+          {groupedMoves[method].map((move, i) => (
+            <li key={i} className="move" style={{ backgroundColor: typeColors[move.type] }}>
+              {move.name} {move.level > 0 && `(Nivel ${move.level})`} - {typeTranslations[move.type]}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  };
+
+  const renderForms = () => {
+    if (!species || species.varieties.length <= 1) {
+      return null;
+    }
+
+    return (
+      <div className="forms-section">
+        <p>Formas:</p>
+        <ul>
+          {species.varieties.map((variety) => {
+            if (variety.pokemon.name === pokemon.name) return null;
+            return (
+              <li key={variety.pokemon.name} onClick={() => navigate(`/pokemon/${variety.pokemon.name}`)}>
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${variety.pokemon.url.split('/')[6]}.png`}
+                  alt={variety.pokemon.name}
+                />
+                {variety.pokemon.name}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  };
+
   return (
     <div className="pokemon-detail">
       <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
       <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-      <p>ID: {pokemon.id}</p>
+      <p>#{pokemon.id}</p>
       <div>
-        <p>Tipos:</p>
-        <ul>
+        <ul className="type-list">
           {pokemon.types.map((typeInfo) => (
             <li key={typeInfo.type.name} style={{ backgroundColor: typeColors[typeInfo.type.name] }}>
               {typeTranslations[typeInfo.type.name]}
@@ -110,7 +195,7 @@ const PokemonDetail = () => {
           ))}
         </ul>
       </div>
-      <div>
+      <div className="evolutions-section">
         <p>Evoluciones:</p>
         <ul>
           {evolutions.map((evolution, index) => (
@@ -121,16 +206,21 @@ const PokemonDetail = () => {
           ))}
         </ul>
       </div>
-      {species && species.varieties.length > 1 && (
-        <div>
-          <p>Formas:</p>
-          <ul>
-            {species.varieties.map((variety) => (
-              <li key={variety.pokemon.name}>{variety.pokemon.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {renderForms()}
+      <div className="moves-section">
+        <p>Movimientos:</p>
+        {renderMoves()}
+      </div>
+      <div className="locations-section">
+        <p>Ubicaciones:</p>
+        <ul>
+          {locations.map((location, index) => (
+            <li key={index}>
+              {location}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

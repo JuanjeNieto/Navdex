@@ -1,19 +1,104 @@
 .pokemon-detail {
-    text-align: center;
-    padding: 20px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.pokemon-detail h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.pokemon-detail img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: 10px auto;
+  background-color: antiquewhite;
+  border: 3px solid rgb(66, 12, 12);
+  border-radius: 20px;
+}
+
+.pokemon-detail p {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.pokemon-detail ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pokemon-detail li {
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.pokemon-detail .type-list li {
+  display: inline-block;
+  margin-right: 10px;
+  color: white;
+  padding: 5px 10px;
+}
+
+.pokemon-detail .moves-section {
+  margin-top: 20px;
+}
+
+.pokemon-detail .moves-section h2 {
+  margin-bottom: 10px;
+}
+
+.pokemon-detail .moves-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pokemon-detail .moves-list .move {
+  width: 48%;
+  margin: 1%;
+  padding: 10px;
+  border: 1px solid #942d2d;
+  border-radius: 15px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.pokemon-detail .locations-section, 
+.pokemon-detail .evolutions-section,
+.pokemon-detail .forms-section {
+  margin-top: 20px;
+}
+
+.pokemon-detail .locations-section ul,
+.pokemon-detail .evolutions-section ul,
+.pokemon-detail .forms-section ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pokemon-detail .locations-section li,
+.pokemon-detail .evolutions-section li,
+.pokemon-detail .forms-section li {
+  width: 48%;
+  margin: 1%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .pokemon-detail .moves-list .move,
+  .pokemon-detail .locations-section li,
+  .pokemon-detail .evolutions-section li,
+  .pokemon-detail .forms-section li {
+    width: 100%;
+    margin: 5px 0;
   }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-  }
-  
+}

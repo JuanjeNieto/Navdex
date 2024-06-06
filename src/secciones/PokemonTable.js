@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PokemonSearch from '../componentes/PokemonSearch';
@@ -21,59 +21,74 @@ const PokemonTable = () => {
   const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [currentGen, setCurrentGen] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      setLoading(true);
-      try {
-        let allPokemons = [];
-        for (const { limit, offset } of generations) {
-          for (let i = offset; i < offset + limit; i += 100) {
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${Math.min(100, offset + limit - i)}&offset=${i}`);
-            const pokemonResults = response.data.results;
+  const fetchPokemons = useCallback(async (gen, offset = 0, limit = 100) => {
+    setLoading(true);
+    try {
+      const { offset: genOffset, limit: genLimit } = generations.find(g => g.gen === gen);
+      const adjustedLimit = Math.min(limit, genLimit - offset); // LIMITE
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${adjustedLimit}&offset=${genOffset + offset}`);
+      const pokemonResults = response.data.results;
 
-            const pokemonDetailsPromises = pokemonResults.map((pokemon) =>
-              axios.get(pokemon.url)
-            );
+      const pokemonDetailsPromises = pokemonResults.map((pokemon) =>
+        axios.get(pokemon.url)
+      );
 
-            const pokemonDetailsResponses = await Promise.all(pokemonDetailsPromises);
-            const pokemonsBatch = pokemonDetailsResponses.map((response) => response.data);
-            
-            allPokemons = [...allPokemons, ...pokemonsBatch];
-          }
-        }
+      const pokemonDetailsResponses = await Promise.all(pokemonDetailsPromises);
+      const pokemonsBatch = pokemonDetailsResponses.map((response) => response.data);
 
-        setPokemons(allPokemons);
-        setFilteredPokemons(allPokemons);
-      } catch (error) {
-        console.error('Error fetching Pokemon data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPokemons();
+      return pokemonsBatch;
+    } catch (error) {
+      console.error('Error fetching Pokemon data:', error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    if (!loading) {
-      const { limit, offset } = generations.find(gen => gen.gen === currentGen);
-      const genPokemons = pokemons.slice(offset, offset + limit);
-      setFilteredPokemons(genPokemons);
+    const loadInitialPokemons = async () => {
+      setLoading(true);
+      const initialPokemons = await fetchPokemons(currentGen);
+      setPokemons(initialPokemons);
+      setFilteredPokemons(initialPokemons);
+      setLoading(false);
+      setCurrentOffset(initialPokemons.length);
+      setHasMore(initialPokemons.length > 0);
+    };
+
+    loadInitialPokemons();
+  }, [currentGen, fetchPokemons]);
+
+  const handleScroll = useCallback(async () => {
+    const { limit: genLimit } = generations.find(g => g.gen === currentGen);
+    if (!loading && hasMore && window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      setLoading(true);
+      const newPokemons = await fetchPokemons(currentGen, currentOffset);
+      setPokemons(prev => [...prev, ...newPokemons]);
+      setFilteredPokemons(prev => [...prev, ...newPokemons]);
+      setCurrentOffset(prev => prev + newPokemons.length);
+      setHasMore(currentOffset + newPokemons.length < genLimit);
+      setLoading(false);
     }
-  }, [currentGen, pokemons, loading]);
+  }, [loading, hasMore, currentOffset, currentGen, fetchPokemons]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   const handleSearch = (searchTerm) => {
     if (!loading) {
       if (searchTerm === '') {
-        const { limit, offset } = generations.find(gen => gen.gen === currentGen);
-        const genPokemons = pokemons.slice(offset, offset + limit);
-        setFilteredPokemons(genPokemons);
+        setFilteredPokemons(pokemons);
       } else {
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
-        const filtered = pokemons.filter(pokemon => 
-          pokemon.name.includes(lowerCaseSearchTerm) || 
+        const filtered = pokemons.filter(pokemon =>
+          pokemon.name.includes(lowerCaseSearchTerm) ||
           pokemon.id.toString().includes(searchTerm)
         );
         setFilteredPokemons(filtered);
@@ -85,6 +100,14 @@ const PokemonTable = () => {
     navigate(`/pokemon/${id}`);
   };
 
+  const handleGenChange = (gen) => {
+    setCurrentGen(gen);
+    setCurrentOffset(0);
+    setHasMore(true);
+    setPokemons([]);
+    setFilteredPokemons([]);
+  };
+
   return (
     <div className='container'>
       <PokemonSearch onSearch={handleSearch} />
@@ -94,13 +117,13 @@ const PokemonTable = () => {
             <button
               key={gen}
               className={gen === currentGen ? 'active' : ''}
-              onClick={() => setCurrentGen(gen)}
+              onClick={() => handleGenChange(gen)}
             >
               Gen {gen}
             </button>
           ))}
         </div>
-        {loading ? (
+        {loading && currentOffset === 0 ? (
           <div className="loading-spinner">
             <div className="spinner"></div>
           </div>
@@ -125,6 +148,11 @@ const PokemonTable = () => {
               ))}
             </tbody>
           </table>
+        )}
+        {loading && currentOffset > 0 && (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+          </div>
         )}
       </div>
     </div>
