@@ -15,7 +15,8 @@ import CompletedLoginMenu from './secciones/CompletedLoginMenu';
 import PokemonDetail from './secciones/PokemonDetail';
 import UserProfile from './secciones/UserProfile'; // Nuevo import
 import ProtectedRoute from './componentes/ProtectedRoute'; 
-import { API_BASE_URL } from './config'; 
+import { API_BASE_URL } from './config';
+import Foro from './secciones/Foro'; 
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,6 +69,7 @@ function App() {
                     <Route path="/" element={<Inicio />} />
                     <Route path="/about" element={<About />} />
                     <Route path='/registrar' element={<Registro />} />
+                    <Route path="/foro" element={<Foro />} />
                     <Route path="/login" element={<Login setUserId={setUserId} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/profile" element={<ProtectedRoute isLoggedIn={isLoggedIn}><UserProfile userId={userId} setIsLoggedIn={setIsLoggedIn} /></ProtectedRoute>} />

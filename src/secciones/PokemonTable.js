@@ -81,20 +81,41 @@ const PokemonTable = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = async (searchTerm) => {
     if (!loading) {
-      if (searchTerm === '') {
-        setFilteredPokemons(pokemons);
-      } else {
-        const lowerCaseSearchTerm = searchTerm.toLowerCase();
-        const filtered = pokemons.filter(pokemon =>
-          pokemon.name.includes(lowerCaseSearchTerm) ||
-          pokemon.id.toString().includes(searchTerm)
+      setLoading(true);
+      try {
+        const { limit, offset } = generations.find(g => g.gen === currentGen);
+  
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1025}&offset=0`);
+        const pokemonResults = response.data.results;
+  
+        const pokemonDetailsPromises = pokemonResults.map((pokemon) =>
+          axios.get(pokemon.url)
         );
-        setFilteredPokemons(filtered);
+  
+        const pokemonDetailsResponses = await Promise.all(pokemonDetailsPromises);
+        const pokemonsBatch = pokemonDetailsResponses.map((response) => response.data);
+  
+        if (searchTerm === '') {
+          setFilteredPokemons(pokemonsBatch);
+        } else {
+          const lowerCaseSearchTerm = searchTerm.toLowerCase();
+          const filtered = pokemonsBatch.filter(pokemon =>
+            pokemon.name.includes(lowerCaseSearchTerm) ||
+            pokemon.id.toString().includes(searchTerm)
+          );
+          setFilteredPokemons(filtered);
+        }
+      } catch (error) {
+        console.error('Error fetching Pokemon data:', error);
+      } finally {
+        setLoading(false);
       }
     }
   };
+  
+  
 
   const handleRowClick = (id) => {
     navigate(`/pokemon/${id}`);
