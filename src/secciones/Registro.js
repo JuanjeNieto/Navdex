@@ -22,11 +22,21 @@ const Registro = () => {
         setDatos({ ...datos, [e.target.name]: e.target.value });
     };
 
+    const validarPassword = (password) => {
+        const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        return regex.test(password);
+    };
+
     const manejoEnvio = async (e) => {
         e.preventDefault();
 
         if (!datos.name || !datos.email || !datos.password) {
             setError('Por favor, complete todos los campos.');
+            return;
+        }
+
+        if (!validarPassword(datos.password)) {
+            setError('La contraseña debe tener al menos 8 caracteres y contener letras y números.');
             return;
         }
 
